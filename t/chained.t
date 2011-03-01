@@ -1,8 +1,16 @@
 #!/usr/bin/perl
+#
+# This file is part of MooseX-ChainedAccessors
+#
+# This software is copyright (c) 2011 by Moritz Onken.
+#
+# This is free software; you can redistribute it and/or modify it under
+# the same terms as the Perl 5 programming language system itself.
+#
 use strict;
 use warnings;
 
-use Test::More tests => 8; 
+use Test::More; 
 
 use_ok('Moose::Meta::Attribute::Custom::Trait::Chained');
 use_ok('MooseX::ChainedAccessors::Accessor');
@@ -69,6 +77,9 @@ is($simple->chained_attr(0)->set_writer_attr('world')->get_writer_attr, 'world',
 }
 
 my $rolechained = ChainedFromRole->new();
+is($rolechained->debug, 0, "debugging is disabled");
 is($rolechained->message, 'world', 'normal access..');
 is($rolechained->debug(1)->message, 'hello', 'chained write affects method call..');
 is($rolechained->debug, 1, 'chained attribute reads ok.');
+
+done_testing;
